@@ -1,0 +1,18 @@
+### 책 등록
+POST http://localhost:8080/library/api/v1/book
+Content-Type: application/json
+
+{
+  "title": "토비의 스프링",
+  "author": "이일민",
+  "publisher": "에이콘",
+  "isbn": "1234567890",
+  "description": "토비의 스프링 3.1",
+  "quantity": 1,
+  "price": 30000
+}
+
+### 책 id 로 조회
+GET http://localhost:8080/library/api/v1/book/1
+Content-Type: application/json
+
