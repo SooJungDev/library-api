@@ -23,5 +23,6 @@ public class BookResponseDto {
     private int availableQuantity; // 대여 가능한 수량
 
     private String bookStatus;
+
     private String bookStatusDescription;
 }

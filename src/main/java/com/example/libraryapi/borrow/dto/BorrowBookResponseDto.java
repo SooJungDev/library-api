@@ -1,18 +1,16 @@
 package com.example.libraryapi.borrow.dto;
 
-import java.util.List;
-
 import lombok.Builder;
 import lombok.Getter;
 
 @Builder
 @Getter
-public class BorrowResponseDto {
+public class BorrowBookResponseDto {
     private Long id;
 
-    private List<BorrowBookResponseDto> borrowBooks;
+    private Long bookId;
 
-    private int totalBorrowBookQuantity;
+    private int quantity;
 
     private String status;
 

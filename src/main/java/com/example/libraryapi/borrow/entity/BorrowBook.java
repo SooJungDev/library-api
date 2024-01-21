@@ -3,7 +3,6 @@ package com.example.libraryapi.borrow.entity;
 import com.example.libraryapi.book.entity.Book;
 import com.example.libraryapi.common.entity.AbstractEntity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -42,16 +41,28 @@ public class BorrowBook extends AbstractEntity {
 
     private int quantity;
 
-
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private BorrowStatus status;
 
-    @Getter
-    @AllArgsConstructor
-    public enum Status {
-        BORROW("대여 중"),
-        RETURN("반납 완료");
-        private final String description;
+    public static BorrowBook createBorrowBook(Book book, int quantity) {
+        if (quantity < 1) {
+            throw new IllegalArgumentException("최소 1개 이상의 책을 대여해야 합니다.");
+        }
+        BorrowBook borrowBook = new BorrowBook();
+        book.borrowBook(quantity);
+        borrowBook.book = book;
+        borrowBook.quantity = quantity;
+        borrowBook.status = BorrowStatus.BORROW;
+        return borrowBook;
+    }
+
+    public void setBorrow(Borrow borrow) {
+        this.borrow = borrow;
+    }
+
+    public void returnBook() {
+        this.book.returnBook(quantity);
+        this.status = BorrowStatus.RETURN;
     }
 
 }

@@ -16,3 +16,22 @@ Content-Type: application/json
 GET http://localhost:8080/library/api/v1/book/1
 Content-Type: application/json
 
+
+### 책 추가 주문
+PATCH http://localhost:8080/library/api/v1/book/order
+Content-Type: application/json
+
+{
+  "id": 1,
+  "quantity": 1
+}
+
+### 책 폐기
+PATCH http://localhost:8080/library/api/v1/book/discard
+Content-Type: application/json
+
+{
+  "id": 1,
+  "quantity": 5
+}
+

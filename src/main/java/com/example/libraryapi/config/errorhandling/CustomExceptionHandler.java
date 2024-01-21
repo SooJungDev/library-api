@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import com.example.libraryapi.common.exception.BookQuantityOverException;
 import com.example.libraryapi.common.exception.BookUnavailableForBorrowedException;
-import com.example.libraryapi.common.exception.BookNotFoundException;
+import com.example.libraryapi.common.exception.EntityNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,11 +26,18 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(BookNotFoundException.class)
-    protected ResponseEntity<ErrorResponse> handleNotExistProductException(BookNotFoundException e) {
-        log.info("handleNotExistBookException", e);
+    @ExceptionHandler(EntityNotFoundException.class)
+    protected ResponseEntity<ErrorResponse> handleEntityNotFoundException(EntityNotFoundException e) {
+        log.info("handleEntityNotFoundException", e);
         final ErrorResponse response = ErrorResponse.of(e);
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(BookQuantityOverException.class)
+    protected ResponseEntity<ErrorResponse> handleBookQuantityOverException(BookQuantityOverException e) {
+        log.info("handleBookQuantityOverException", e);
+        final ErrorResponse response = ErrorResponse.of(e);
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

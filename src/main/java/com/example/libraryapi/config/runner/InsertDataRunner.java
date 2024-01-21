@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.example.libraryapi.book.entity.Book;
-import com.example.libraryapi.book.entity.Book.Status;
 import com.example.libraryapi.book.respository.BookRespository;
 import com.example.libraryapi.customer.entity.Customer;
 import com.example.libraryapi.customer.respository.CustomerRepository;

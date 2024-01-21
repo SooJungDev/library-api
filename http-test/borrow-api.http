@@ -1,0 +1,39 @@
+### 책 대여 API
+POST http://localhost:8080/library/api/v1/book/borrow
+Content-Type: application/json
+
+{
+  "customerId": 1,
+  "borrowBooks": [
+    {
+      "bookId": 2,
+      "quantity": 1
+    },
+    {
+      "bookId": 3,
+      "quantity": 1
+    }
+  ]
+}
+
+
+
+### 책 반납 API
+POST http://localhost:8080/library/api/v1/book/return
+Content-Type: application/json
+
+{
+    "id": 1,
+    "customerId": 1,
+    "returnBooks": [
+      {
+        "bookId": 2,
+        "quantity": 1
+      },
+      {
+        "bookId": 3,
+        "quantity": 1
+      }
+    ]
+}
+

@@ -39,6 +39,7 @@ public class Customer extends AbstractEntity {
 
     private String phone;
 
+    @Builder.Default
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.PERSIST)
     private List<Borrow> borrowList = new ArrayList<>();
 

@@ -7,8 +7,9 @@ import java.util.stream.Collectors;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import com.example.libraryapi.common.exception.BookQuantityOverException;
 import com.example.libraryapi.common.exception.BookUnavailableForBorrowedException;
-import com.example.libraryapi.common.exception.BookNotFoundException;
+import com.example.libraryapi.common.exception.EntityNotFoundException;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -70,8 +71,12 @@ public class ErrorResponse {
         return new ErrorResponse(ErrorCode.BOOK_UNAVAILABLE_FOR_BORROW, e.getMessage());
     }
 
-    public static ErrorResponse of(BookNotFoundException e) {
-        return new ErrorResponse(ErrorCode.BOOK_NOT_FOUND, e.getMessage());
+    public static ErrorResponse of(EntityNotFoundException e) {
+        return new ErrorResponse(ErrorCode.COMMON_ENTITY_NOT_FOUND, e.getMessage());
+    }
+
+    public static ErrorResponse of(BookQuantityOverException e) {
+        return new ErrorResponse(ErrorCode.BOOK_QUANTITY_OVER, e.getMessage());
     }
 
     @Getter

@@ -1,6 +1,7 @@
 package com.example.libraryapi.book.entity;
 
 import com.example.libraryapi.common.entity.AbstractEntity;
+import com.example.libraryapi.common.exception.BookQuantityOverException;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -15,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
 
 @Getter
 @AllArgsConstructor
@@ -70,20 +72,56 @@ public class Book extends AbstractEntity {
         this.status = Status.AVAILABLE;
     }
 
-    void addQuantity(int quantity) {
-        if(quantity < 0) {
-            throw new IllegalArgumentException("quantity 는 0보다 커야 합니다.");
-        }
+    public void orderBook(int quantity) {
+        checkQuantity(quantity);
         this.quantity += quantity;
         this.availableQuantity += quantity;
+        setAvailable();
     }
 
-    void deleteQuantity(int quantity) {
-        if(quantity < 0) {
-            throw new IllegalArgumentException("quantity 는 0보다 커야 합니다.");
+    public void discardBook(int quantity) {
+        checkQuantity(quantity);
+        final int restQuantity = this.availableQuantity - quantity;
+        if (restQuantity < 0) {
+            throw new BookQuantityOverException("폐기할 수량이 현재 도서관에 보유한 수량보다 많습니다.");
         }
         this.quantity -= quantity;
-        this.availableQuantity -= quantity;
+        this.availableQuantity = restQuantity;
+        setUnavailable();
     }
 
+    public void borrowBook(int quantity) {
+        checkQuantity(quantity);
+        final int restQuantity = this.availableQuantity - quantity;
+        if (restQuantity < 0) {
+            throw new BookQuantityOverException("대여할 수량이 현재 도서관에 보유한 수량보다 많습니다.");
+        }
+
+        this.availableQuantity = restQuantity;
+        setUnavailable();
+    }
+
+    public void returnBook(int quantity) {
+        checkQuantity(quantity);
+        this.availableQuantity += quantity;
+        setAvailable();
+    }
+
+    private void setUnavailable() {
+        if (this.availableQuantity < 1) {
+            this.status = Status.UNAVAILABLE;
+        }
+    }
+
+    private void setAvailable() {
+        if (this.availableQuantity > 0) {
+            this.status = Status.AVAILABLE;
+        }
+    }
+
+    private static void checkQuantity(int quantity) {
+        if (quantity < 0) {
+            throw new IllegalArgumentException("quantity 는 0보다 커야 합니다.");
+        }
+    }
 }
