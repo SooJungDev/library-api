@@ -18,17 +18,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Builder
 @Table(name = "borrow")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class Borrow extends AbstractEntity {
 
     @Id
@@ -36,7 +33,6 @@ public class Borrow extends AbstractEntity {
     @Column(name = "borrow_id")
     private Long id;
 
-    @Builder.Default
     @OneToMany(mappedBy = "borrow", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BorrowBook> borrowBooks = new ArrayList<>();
 
@@ -48,6 +44,15 @@ public class Borrow extends AbstractEntity {
 
     @Column(name = "status")
     private BorrowStatus status;
+
+    @Builder
+    public Borrow(List<BorrowBook> borrowBooks, Customer customer, int totalBorrowBookQuantity,
+                  BorrowStatus status) {
+        this.borrowBooks = borrowBooks;
+        this.customer = customer;
+        this.totalBorrowBookQuantity = totalBorrowBookQuantity;
+        this.status = status;
+    }
 
     public static Borrow createBorrow(List<BorrowBook> borrowBooks, Customer customer) {
         Borrow borrow = new Borrow();

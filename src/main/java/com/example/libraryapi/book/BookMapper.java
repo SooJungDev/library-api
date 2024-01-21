@@ -17,10 +17,7 @@ import com.example.libraryapi.book.entity.Book;
 )
 public interface BookMapper {
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "status", ignore = true)
-    @Mapping(target = "availableQuantity", ignore = true)
-    @Mapping(target = "quantity", source = "quantity")
+
     Book of(BookRequestDto bookDto);
 
     @Mappings({

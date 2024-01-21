@@ -19,7 +19,6 @@ import lombok.NoArgsConstructor;
 
 
 @Getter
-@AllArgsConstructor
 @Entity
 @Table(name = "book")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

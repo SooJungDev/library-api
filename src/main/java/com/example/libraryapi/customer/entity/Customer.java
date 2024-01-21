@@ -16,7 +16,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,8 +23,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "customer")
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Customer extends AbstractEntity {
     @Id
@@ -39,8 +36,14 @@ public class Customer extends AbstractEntity {
 
     private String phone;
 
-    @Builder.Default
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "customer", cascade = CascadeType.PERSIST)
     private List<Borrow> borrowList = new ArrayList<>();
 
+    @Builder
+    public Customer(String name, String address, String phone, List<Borrow> borrowList) {
+        this.name = name;
+        this.address = address;
+        this.phone = phone;
+        this.borrowList = borrowList;
+    }
 }

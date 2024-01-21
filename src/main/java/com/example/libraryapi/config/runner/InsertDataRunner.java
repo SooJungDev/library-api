@@ -15,7 +15,7 @@ import com.example.libraryapi.customer.respository.CustomerRepository;
 
 import lombok.RequiredArgsConstructor;
 
-@Profile("local")
+@Profile({"local", "test"})
 @Component
 @RequiredArgsConstructor
 public class InsertDataRunner implements ApplicationRunner {

@@ -14,17 +14,14 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Builder
 @Getter
 @Table(name = "borrow_book")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 public class BorrowBook extends AbstractEntity {
 
     @Id
@@ -43,6 +40,14 @@ public class BorrowBook extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)
     private BorrowStatus status;
+
+    @Builder
+    public BorrowBook(Book book, Borrow borrow, int quantity, BorrowStatus status) {
+        this.book = book;
+        this.borrow = borrow;
+        this.quantity = quantity;
+        this.status = status;
+    }
 
     public static BorrowBook createBorrowBook(Book book, int quantity) {
         if (quantity < 1) {
