@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import com.example.libraryapi.book.entity.Book;
-import com.example.libraryapi.book.respository.BookRespository;
+import com.example.libraryapi.book.respository.BookRepository;
 import com.example.libraryapi.customer.entity.Customer;
 import com.example.libraryapi.customer.respository.CustomerRepository;
 
@@ -22,7 +22,7 @@ public class InsertDataRunner implements ApplicationRunner {
 
     private final CustomerRepository customerRepository;
 
-    private final BookRespository bookRespository;
+    private final BookRepository bookRespository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {

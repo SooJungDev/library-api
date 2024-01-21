@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.libraryapi.book.entity.Book;
-import com.example.libraryapi.book.respository.BookRespository;
+import com.example.libraryapi.book.respository.BookRepository;
 import com.example.libraryapi.common.exception.EntityNotFoundException;
 
 import lombok.RequiredArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class BookServiceImpl implements BookService {
 
-    private final BookRespository bookRespository;
+    private final BookRepository bookRespository;
 
     @Transactional
     @Override
