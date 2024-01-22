@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/library/api/v1/book")
+@RequestMapping("/library/api/book")
 public class BorrowController {
 
     private final BorrowFacade borrowFacade;

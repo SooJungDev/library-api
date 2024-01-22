@@ -15,7 +15,7 @@
 
 ## 프로젝트 실행방법
 1. 압축파일을 푼 후 해당 경로로 들어갑니다.
-- ex) cd /Users/crystal/homework
+- ex) cd /Users/crystal/library-api
 ~~~shell
 cd '본인이 다운받은 위치의 경로'
 ~~~
