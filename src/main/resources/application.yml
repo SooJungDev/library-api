@@ -2,18 +2,11 @@ server:
   port: 8080
 
 spring:
-  config:
-    activate:
-      on-profile: local
+  profiles:
+    active: local
   h2:
     console:
       enabled: true
-
-  datasource:
-    url: jdbc:h2:mem:library
-    driver-class-name: org.h2.Driver
-    username: sa
-    password:
 
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
@@ -33,9 +26,35 @@ spring:
       client-name: library
       timeout: 10000
 
+
 book:
   key-prefix: book_lock
 
-
 logging:
   config: classpath:logback-local.xml
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  datasource:
+    url: jdbc:h2:mem:library
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+
+  datasource:
+    url: jdbc:h2:mem:library-test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
