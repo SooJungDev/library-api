@@ -52,7 +52,7 @@ java -jar -Dspring.profiles.active=local library-api-0.0.1-SNAPSHOT.jar
 - [X] 도서관 사서가 책을 폐기하는 API
 
 ## 추가 요구사항
-- 책을 예약 주문하기 (스케쥴러 돌리기) 특정 시간에 주문 api 호출
+- [X] 책을 예약 주문하기 (스케쥴러 돌리기) 특정 시간에 주문 api 호출
 - [X] 책이 주문될때마다 kafka queue에 쌓고(이벤트를 발행), 다른 어플리케이션을 만들어서 이 앱이 queue에 있는 이벤트를 컨슘해서, 슬랙으로 메세지 보내주기. “xxx 책이 주문되었습니다” 메세지
   - library-consumer-api 프로젝트로 구현
 
