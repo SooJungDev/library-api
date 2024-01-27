@@ -8,7 +8,9 @@ import org.mapstruct.ReportingPolicy;
 
 import com.example.libraryapi.book.dto.BookRequestDto;
 import com.example.libraryapi.book.dto.BookResponseDto;
+import com.example.libraryapi.book.dto.OrderBookResponseDto;
 import com.example.libraryapi.book.entity.Book;
+import com.example.libraryapi.book.entity.OrderBook;
 
 @Mapper(
         componentModel = "spring",
@@ -25,4 +27,9 @@ public interface BookMapper {
             @Mapping(expression = "java(book.getStatus().getDescription())", target = "bookStatusDescription"),
     })
     BookResponseDto of(Book book);
+
+    @Mapping(target = "totalStockQuantity", source = "book.quantity")
+    @Mapping(target = "bookId", source = "book.id")
+    @Mapping(target = "title", source = "book.title")
+    OrderBookResponseDto of(OrderBook orderBook);
 }

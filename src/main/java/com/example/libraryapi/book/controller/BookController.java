@@ -1,5 +1,7 @@
 package com.example.libraryapi.book.controller;
 
+import java.time.LocalDateTime;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -7,15 +9,21 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.libraryapi.book.BookMapper;
 import com.example.libraryapi.book.dto.BookQuantityUpdateDto;
 import com.example.libraryapi.book.dto.BookRequestDto;
 import com.example.libraryapi.book.dto.BookResponseDto;
+import com.example.libraryapi.book.dto.OrderBookRequestDto;
+import com.example.libraryapi.book.dto.OrderBookResponseDto;
 import com.example.libraryapi.book.entity.Book;
+import com.example.libraryapi.book.entity.OrderBook;
 import com.example.libraryapi.book.service.BookService;
 import com.example.libraryapi.book.service.BookFacade;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +37,7 @@ public class BookController {
 
     private final BookService bookService;
     private final BookMapper bookMapper;
-    private final BookFacade redissonLockBookFacade;
+    private final BookFacade bookFacade;
 
     @GetMapping("/{id}")
     public ResponseEntity<BookResponseDto> findById(@PathVariable("id") Long id) {
@@ -46,20 +54,25 @@ public class BookController {
     }
 
     @PatchMapping("/order")
-    public ResponseEntity<BookResponseDto> order(@Valid @RequestBody BookQuantityUpdateDto quantityUpdateDto) {
-        final Book orderedBook = redissonLockBookFacade.order(quantityUpdateDto.getId(),
-                                                              quantityUpdateDto.getQuantity());
-        final BookResponseDto bookResponseDto = bookMapper.of(orderedBook);
-        return ResponseEntity.ok(bookResponseDto);
+    public ResponseEntity<OrderBookResponseDto> order(
+            @Valid @RequestBody OrderBookRequestDto orderBookRequestDto) {
+        final OrderBook order = bookFacade.order(orderBookRequestDto);
+        final OrderBookResponseDto orderBookResponseDto = bookMapper.of(order);
+        return ResponseEntity.ok(orderBookResponseDto);
     }
 
     @PatchMapping("/discard")
     public ResponseEntity<BookResponseDto> discard(
             @Valid @RequestBody BookQuantityUpdateDto quantityUpdateDto) {
-        final Book orderedBook = redissonLockBookFacade.discard(quantityUpdateDto.getId(),
-                                                                quantityUpdateDto.getQuantity());
+        final Book orderedBook = bookFacade.discard(quantityUpdateDto.getId(),
+                                                    quantityUpdateDto.getQuantity());
         final BookResponseDto bookResponseDto = bookMapper.of(orderedBook);
         return ResponseEntity.ok(bookResponseDto);
     }
 
+    @PostMapping("/order/reserve")
+    public ResponseEntity<String> reserve() {
+        bookFacade.reserveOrder();
+        return ResponseEntity.ok("success");
+    }
 }

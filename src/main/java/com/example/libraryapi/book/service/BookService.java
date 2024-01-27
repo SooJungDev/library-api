@@ -8,7 +8,5 @@ public interface BookService {
 
     Book findById(Long id);
 
-    Book order(Long id, int quantity);
-
     Book discard(Long id, int quantity);
 }

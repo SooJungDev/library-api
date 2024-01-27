@@ -1,5 +1,5 @@
 ### 책 등록
-POST {{host}}/library/api/book
+POST {{host}}/books
 Content-Type: application/json
 
 {
@@ -20,25 +20,43 @@ Content-Type: application/json
 %}
 
 ### 책 id 로 조회
-GET {{host}}/library/api/book/{{bookId}}
+GET {{host}}/books/{{bookId}}
 Content-Type: application/json
 
 
-### 책 추가 주문
-PATCH {{host}}/library/api/book/order
+### 책 추가 주문(예약)
+PATCH {{host}}/books/order
 Content-Type: application/json
 
 {
   "id": {{bookId}},
-  "quantity": 1
+  "quantity": 1,
+  "orderType": "RESERVATION",
+  "orderAt": "2024-01-28T05:30:00+09:00"
+}
+
+### 책 추가 주문
+PATCH {{host}}/books/order
+Content-Type: application/json
+
+{
+  "id": {{bookId}},
+  "quantity": 1,
+  "orderType": "NOW"
 }
 
 ### 책 폐기
-PATCH {{host}}/library/api/book/discard
+PATCH {{host}}/books/discard
 Content-Type: application/json
 
 {
   "id": {{bookId}},
   "quantity": 5
 }
+
+
+
+### 책 예약 주문 실행 api
+POST {{host}}/books/order/reserve
+Content-Type: application/json
 

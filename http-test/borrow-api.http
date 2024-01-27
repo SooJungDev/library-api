@@ -1,5 +1,5 @@
 ### 책 대여 API
-POST {{host}}/library/api/book/borrow
+POST {{host}}/books/borrow
 Content-Type: application/json
 
 {
@@ -19,7 +19,7 @@ Content-Type: application/json
 
 
 ### 책 반납 API
-POST {{host}}/library/api/book/return
+POST {{host}}/books/return
 Content-Type: application/json
 
 {

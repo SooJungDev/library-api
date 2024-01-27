@@ -25,10 +25,13 @@ spring:
       database: 0
       client-name: library
       timeout: 10000
+  kafka:
+    bootstrap-servers: localhost:9092
 
 
 book:
   key-prefix: book_lock
+  reserve-topic: book.reservation
 
 logging:
   config: classpath:logback-local.xml

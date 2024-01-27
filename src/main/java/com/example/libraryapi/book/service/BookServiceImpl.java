@@ -33,13 +33,6 @@ public class BookServiceImpl implements BookService {
                 () -> new EntityNotFoundException(String.format("책 아이디가 %d 인 책이 존재하지 않습니다.", id)));
     }
 
-    @Transactional
-    @Override
-    public Book order(Long id, int quantity) {
-        Book book = findById(id);
-        book.orderBook(quantity);
-        return book;
-    }
 
     @Transactional
     @Override
