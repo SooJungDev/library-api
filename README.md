@@ -21,7 +21,7 @@ cd '본인이 다운받은 위치의 경로'
 ~~~
 2. 해당 경로에서 docker-compose 를 실행시킵니다.
 ~~~shell
-docker-compose up -d
+docker-compose -f docker-compose.yml up -d
 ~~~
 3.해당 경로에서 클린 후 빌드 실행합니다.
 ~~~shell
