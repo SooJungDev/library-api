@@ -29,7 +29,7 @@ class BookControllerTest {
     @Test
     @DisplayName("도서 등록 API 테스트")
     void registerBook() throws Exception {
-        mockMvc.perform(post("/library/api/book")
+        mockMvc.perform(post("/books")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(
                                         "{\"title\":\"테스트 책 이름\",\"author\":\"테스트 책 저자\", \"publisher\": \"테스트 출판사\",\"isbn\": \"1234567890\",\"price\":10000,\"quantity\":10}"))
@@ -51,7 +51,7 @@ class BookControllerTest {
     @Test
     @DisplayName("도서 id로 조회 API 테스트")
     void getBookById() throws Exception {
-        mockMvc.perform(get("/library/api/book/1"))
+        mockMvc.perform(get("/books/1"))
                .andDo(print())
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.id").exists())
@@ -69,27 +69,21 @@ class BookControllerTest {
     @Test
     @DisplayName("도서 주문 API 테스트")
     void orderBook() throws Exception {
-        mockMvc.perform(patch("/library/api/book/order")
+        mockMvc.perform(patch("/books/order")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content("{\"id\":1,\"quantity\":1}"))
+                                .content("{\"id\":1,\"quantity\":1, \"orderType\": \"NOW\"}"))
                .andDo(print())
                .andExpect(status().isOk())
-               .andExpect(jsonPath("$.id").exists())
+               .andExpect(jsonPath("$.bookId").value("1"))
                .andExpect(jsonPath("$.title").value("book1"))
-               .andExpect(jsonPath("$.author").value("author1"))
-               .andExpect(jsonPath("$.publisher").value("publisher1"))
-               .andExpect(jsonPath("$.isbn").value("1234567891111"))
-               .andExpect(jsonPath("$.price").value(16800))
-               .andExpect(jsonPath("$.quantity").value(6))
-               .andExpect(jsonPath("$.availableQuantity").value(6))
-               .andExpect(jsonPath("$.bookStatus").value("AVAILABLE"))
-               .andExpect(jsonPath("$.bookStatusDescription").value("대여 가능"));
+               .andExpect(jsonPath("$.quantity").value(1))
+               .andExpect(jsonPath("$.totalStockQuantity").value(6));
     }
 
     @Test
     @DisplayName("도서 폐기 API 테스트")
     void discardBook() throws Exception {
-        mockMvc.perform(patch("/library/api/book/discard")
+        mockMvc.perform(patch("/books/discard")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content("{\"id\":1,\"quantity\":1}"))
                .andDo(print())

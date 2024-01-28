@@ -3,10 +3,10 @@ POST {{host}}/books
 Content-Type: application/json
 
 {
-  "title": "토비의 스프링2",
-  "author": "이일민",
+  "title": "test 책",
+  "author": "test",
   "publisher": "에이콘",
-  "isbn": "1234567893",
+  "isbn": "1234567895",
   "quantity": 10,
   "price": 30000
 }
@@ -32,7 +32,7 @@ Content-Type: application/json
   "id": {{bookId}},
   "quantity": 1,
   "orderType": "RESERVATION",
-  "orderAt": "2024-01-28T05:30:00+09:00"
+  "orderAt": "2024-01-30T05:30:00+09:00"
 }
 
 ### 책 추가 주문
@@ -53,8 +53,6 @@ Content-Type: application/json
   "id": {{bookId}},
   "quantity": 5
 }
-
-
 
 ### 책 예약 주문 실행 api
 POST {{host}}/books/order/reserve

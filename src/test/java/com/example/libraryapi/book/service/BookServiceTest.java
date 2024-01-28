@@ -64,22 +64,7 @@ class BookServiceTest {
         assertThat(book.getAuthor()).isEqualTo("author1");
     }
 
-    @Test
-    @DisplayName("책을 추가 주문한다")
-    void order() {
-        // given
-        final Book book = bookService.findById(1L);
-        final int originQuantity = book.getQuantity();
 
-        // when
-        final int orderQuantity = 5;
-        final Book order = bookService.order(book.getId(), orderQuantity);
-
-        // then
-        assertThat(order).isNotNull();
-        assertThat(order.getId()).isEqualTo(book.getId());
-        assertThat(order.getQuantity()).isEqualTo(originQuantity + orderQuantity);
-    }
 
     @Test
     @DisplayName("책을 폐기한다.")

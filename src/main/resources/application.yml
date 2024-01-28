@@ -36,6 +36,8 @@ book:
 logging:
   config: classpath:logback-local.xml
 
+book-url: http://localhost:8080/books
+
 ---
 spring:
   config:
@@ -47,8 +49,6 @@ spring:
     driver-class-name: org.h2.Driver
     username: sa
     password:
-
-book-url: http://localhost:8080/books
 
 ---
 spring:

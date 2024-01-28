@@ -2,8 +2,6 @@ package com.example.libraryapi.book.dto;
 
 import java.time.ZonedDateTime;
 
-import com.example.libraryapi.book.entity.OrderType;
-
 import lombok.Getter;
 import lombok.Setter;
 

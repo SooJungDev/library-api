@@ -29,7 +29,7 @@ class BorrowControllerTest {
     @Test
     @DisplayName("도서 대출 API 테스트")
     void borrowBook() throws Exception {
-        mockMvc.perform(post("/library/api/book/borrow")
+        mockMvc.perform(post("/books/borrow")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(
                                 "{\"customerId\": 1, \"borrowBooks\": [ {\"bookId\": 1,\"quantity\": 1},{ \"bookId\": 2, \"quantity\": 1} ]}"
@@ -50,7 +50,7 @@ class BorrowControllerTest {
     @Test
     @DisplayName("도서 반납 API 테스트")
     void returnBook() throws Exception {
-        mockMvc.perform(post("/library/api/book/return")
+        mockMvc.perform(post("/books/return")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(
                                 "{\"id\": 1, \"customerId\": 1, \"returnBooks\": [ {\"bookId\": 1,\"quantity\": 1},{ \"bookId\": 2, \"quantity\": 1} ]}"
